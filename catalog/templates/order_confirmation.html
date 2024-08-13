@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <header>
+            <h1 class="mb-4">Order Confirmation</h1>
+            <nav>
+                <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+                <a href="{% url 'product_list' %}" class="btn btn-secondary">Products</a>
+                <a href="{% url 'cart' %}" class="btn btn-info">Cart</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Thank you for your order!</h4>
+                <p>Your order has been successfully processed. You will receive an email confirmation shortly.</p>
+                <hr>
+                <p class="mb-0">If you have any questions, please <a href="{% url 'contact' %}">contact us</a>.</p>
+            </div>
+            
+            <div class="mt-4">
+                <h4>Order Details</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order_items %}
+                            <tr>
+                                <td>{{ item.product.name }}</td>
+                                <td>${{ item.price }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>${{ item.get_cost }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-right"><strong>Total:</strong></td>
+                            <td><strong>${{ total_cost }}</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

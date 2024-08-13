@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Catalog</title>
+    <style>
+        /* Add CSS styles for flex container and items */
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            list-style: none;
+            padding: 0;
+        }
+
+        .product-item {
+            flex: 1;
+            max-width: 30%;
+            margin: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Style the buttons */
+        .button {
+            display: block;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .button.remove {
+            background-color: #dc3545; /* Red color for remove */
+        }
+
+        .cart-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Product Catalog</h1>
+    
+    <ul class="product-list">
+        {% for product in products %}
+            <li class="product-item">
+                <a href="{% url 'product_detail' product.pk %}">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" width="100">
+                </a>
+                <h2>{{ product.name }}</h2>
+                <p>{{ product.description }}</p>
+                <p>Price: {{ product.formatted_price }}</p>
+                
+                <!-- Add to Cart Button -->
+                <a href="{% url 'add_to_cart' product.pk %}" class="button">Add to Cart</a>
+
+                <!-- Remove from Cart Button -->
+                <a href="{% url 'remove_from_cart' product.pk %}" class="button remove">Remove from Cart</a>
+            </li>
+        {% endfor %}
+    </ul>
+    
+    <!-- View Cart Button -->
+    <div class="cart-button">
+        <a href="{% url 'cart' %}" class="button">View Cart</a>
+    </div>
+</body>
+</html>
+`
